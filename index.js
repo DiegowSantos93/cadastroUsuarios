@@ -1,6 +1,6 @@
 const prompt = require("prompt-sync")();
 
-const {criar, listar} = require("./usuarios.js")
+const {criar, listar, atualizar, remover} = require("./usuarios.js")
 
 while (true){
     console.log('===Cadastro de usuários===\nEscolha a opção desejada:\n1. Criar usuário\n2. Listar usuário\n3. Editar usuário\n4. Deletar usuário\n5. Sair')
@@ -14,10 +14,10 @@ while (true){
             listar();
             break;
         case 3:
-
+            atualizar();
             break;
         case 4:
-
+            remover();
             break;
         case 5:
             console.log('Saindo do sistema, até mais!');
