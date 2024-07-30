@@ -27,7 +27,7 @@ const modelo = (id) => {
         telefones.push(telefone)
     }
 
-    if (nome != "" && email != ""){
+    if (emailDuplicado(email, id)){
         let usuario;
         if (id == undefined) {
             usuario = {nome, email, telefones, id: ultimoId,};
@@ -36,9 +36,8 @@ const modelo = (id) => {
             usuario = {nome, email, telefones, id,}
         }
         return usuario
-    } else {
-        console.log('Dados inválidos.');
-    }
+    } 
+        console.log('Falha em realizar a operação.');
 };
 
 const criar = () => {
@@ -51,13 +50,51 @@ const criar = () => {
 }
 
 const listar = () => {
-    usuarios.forEach((usuario, index) => {
-        console.log(`${usuario.id}.\nNome: ${usuario.nome}\nEmail: ${usuario.email}`)
-        console.log('Telefones:');
-        usuario.telefones.forEach((telefone, index) => {
-            console.log(`${index +1}. ${telefone}`)
+    if (usuarios.length == 0){
+        console.log('Não existem usuários cadastrados')
+        return false
+    } else {
+        usuarios.forEach((usuario, index) => {
+            console.log(`${usuario.id}.\nNome: ${usuario.nome}\nEmail: ${usuario.email}`)
+            console.log('Telefones:');
+            usuario.telefones.forEach((telefone, index) => {
+                console.log(`${index +1}. ${telefone}`)
+            });
         });
-    });
+        return true;
+    }
 };
 
-module.exports = {criar, listar}
+const atualizar = (usuario) => {
+    if(listar()){
+        const id = prompt('Qual id de usuário deseja atualizar?');
+
+        const novo = modelo(id);
+
+        const indice = usuarios.findIndex(usuario => id == usuario.id)
+
+        if(indice != -1){
+            usuarios[indice] = novo
+            console.log('Edição realizada com sucesso.')
+        } else {
+            console.log('Id inexistente.')
+        }
+    }
+};
+
+const remover = () => {
+    if (listar()){
+        const id = prompt ('Qual id de usuário deseja remover?')
+
+        const indice = usuarios.findIndex(usuario => id == usuario.id)
+
+        if(indice != -1){
+            usuarios.splice(indice,1)
+            console.log('Remoção realizada com sucesso.')
+        } else {
+            console.log('Id inexistente.')
+        }
+    }
+};
+
+module.exports = {criar, listar, atualizar, remover}
