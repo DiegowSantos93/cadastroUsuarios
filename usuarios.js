@@ -66,7 +66,7 @@ const listar = () => {
 };
 
 const atualizar = (usuario) => {
-    if(listar()){
+    if(listar(true)){
         const id = prompt('Qual id de usuário deseja atualizar?');
 
         const novo = modelo(id);
@@ -83,7 +83,7 @@ const atualizar = (usuario) => {
 };
 
 const remover = () => {
-    if (listar()){
+    if (listar(true)){
         const id = prompt ('Qual id de usuário deseja remover?')
 
         const indice = usuarios.findIndex(usuario => id == usuario.id)
